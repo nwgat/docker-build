@@ -50,8 +50,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /packages/*.deb /tmp/
 
 # Install them inside the container
-RUN dpkg -i /tmp/makemkv-oss_*.deb /tmp/makemkv-bin_*.deb && \
-    rm /tmp/*.deb
+RUN dpkg -i /tmp/makemkv-oss_*.deb /tmp/makemkv-bin_*.deb
 
 # Runtime Configuration
 RUN mkdir -p /output   
