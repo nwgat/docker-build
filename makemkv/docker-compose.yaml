@@ -1,0 +1,24 @@
+services:
+  makemkv:
+    build: .
+    image: makemkv:1.18.2
+    container_name: makemkv
+    # Keeps container running so you can exec commands
+    command: tail -f /dev/null
+    
+    # Give access to optical drives
+    devices:
+      - "/dev/sr0:/dev/sr0"
+      - "/dev/sg0:/dev/sg0"
+    privileged: true
+    
+    volumes:
+      - ./output:/output
+      # Persist MakeMKV settings/registration key locally
+      - ./.MakeMKV:/root/.MakeMKV
+      # Map your media folder (change path as needed)
+      # - /home/user/media:/mnt/media
+      
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
