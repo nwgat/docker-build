@@ -28,4 +28,5 @@ services:
     privileged: true
     devices:
       # Mapping your specific ConBee III path to /dev/ttyACM0 inside the container, change serial or device
-      - /dev/serial/by-id/usb-dresden_elektronik_ConBee_III_XXX-if00-port0:/dev/ttyACM0
+      #- /dev/serial/by-id/usb-dresden_elektronik_ConBee_III_XXX-if00-port0:/dev/ttyACM0
+      - /dev/ttyUSB0:/dev/ttyUSB0
