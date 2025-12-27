@@ -1,0 +1,36 @@
+services:
+  ha:
+    container_name: ha
+    image: ghcr.io/home-assistant/home-assistant:stable
+    restart: unless-stopped
+    user: "0:0"
+    privileged: true
+    network_mode: host
+      environment:
+      - TZ=Europe/Oslo
+    volumes:
+      - /root/docker_configs/ha_config:/config
+      - /var/run/dbus/:/var/run/dbus/:ro
+    depends_on:
+      - mariadb
+    # -----------------------------------------------------------
+    # ADDED: Install pymysql on every boot, then start HA
+    # -----------------------------------------------------------
+    command: >
+      sh -c "pip3 install pymysql &&
+             python -m homeassistant --config /config"
+
+  mariadb:
+    container_name: ha-db
+    image: yobasystems/alpine-mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: haroot
+      MYSQL_DATABASE: ha
+      MYSQL_USER: ha
+      MYSQL_PASSWORD: ha
+    volumes:
+      - /root/docker_configs/ha_db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
