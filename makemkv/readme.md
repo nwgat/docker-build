@@ -16,4 +16,4 @@ run in docker
 
 update version
 note: if you want to compile a newer version change these 
-* change `FROM ubuntu:25.10 AS builder` and `ENV MAKEMKV_VERSION=1.18.2` in `Dockerfile` and then change ``image: makemkv:1.18.2` in `docker-compose.yaml` to same makemkv version
+* change `FROM ubuntu:25.10 AS builder` and `ENV MAKEMKV_VERSION=1.18.2` in `Dockerfile` and then change `image: makemkv:1.18.2` in `docker-compose.yaml` to same makemkv version
